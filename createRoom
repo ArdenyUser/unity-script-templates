@@ -2,14 +2,16 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class JoinRoom : MonoBehaviour
+public class JoinRoom : MonoBehaviourPunCallBacks
 {
     [SerializeField]
-    private TypedLobby mainLobby = new TypedLobby("mainLobby", LobbyType.Default);
+    private TypedLobby mainLobby =  //new// TypedLobby("mainLobby", LobbyType.Default);
     private maxPlayers = 3;
+    private Dictionary<string, RoomInfo> cachedRoomList = new Dictionary<string, RoomInfo>();
     
     public void Start() {
-        RoomOptions roomOptions = new RoomOptions();
+        PhotonNetwork.JoinLobby(mainLobby);
+        RoomOptions roomOptions = new RoomOptions(); 
 	roomOptions.MaxPlayers = maxPlayers;
     	PhotonNetwork.CreateRoom(GETTEXTHERE, roomOptions, mainLobby);
     
